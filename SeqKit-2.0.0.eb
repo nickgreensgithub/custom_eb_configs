@@ -1,7 +1,8 @@
+# Modified by: Nicholas Green
 easyblock = 'GoPackage'
 
 name = 'SeqKit'
-version = '2.0.0'
+version = '2.0.0' # Version updated
 
 homepage = 'https://bioinf.shenwei.me/seqkit/'
 description = """SeqKit - a cross-platform and ultrafast toolkit for FASTA/Q file manipulation"""

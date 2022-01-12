@@ -1,0 +1,45 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+
+easyblock = 'PackedBinary'
+
+name = 'get_homologues'
+version = '3.3.2'
+
+
+homepage = 'https://github.com/eead-csic-compbio/get_homologues/'
+description = """GET_HOMOLOGUES: a versatile software package for pan-genome analysis."""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+source_urls = ['https://github.com/eead-csic-compbio/get_homologues/releases/download/v3.3.2/']
+sources = ['%(name)s-x86_64-20200226.tgz']
+
+local_perl = "Perl"
+local_perlver = '5.26.1'
+versionsuffix = "-%s-%s" % (local_perl, local_perlver)
+
+dependencies = [
+    (local_perl, local_perlver),
+    ('R', '3.5.0', '-X11-20180131'),
+    ('GD', '2.68', versionsuffix),
+    ('factoextra', '1.0.3'),
+    ('kdetrees', '0.1.5'),
+]
+
+modextrapaths = {'PATH': ['']}
+
+install_cmd = 'cd %(builddir)s/'
+
+postinstallcmds = ['cp -r %(builddir)s/get_homologues-x86_64-20200226/* %(installdir)s && cd %(installdir)s && ./install.pl --prefix .']
+
+# test may be broken
+#runtest = False
+sanity_check_paths = {
+   'files': ["get_homologues.pl"],
+   'dirs': [],
+}
+
+moduleclass = 'bio'
+
+

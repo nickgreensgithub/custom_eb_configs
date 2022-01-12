@@ -1,0 +1,41 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+easyblock = 'MakeCp'
+
+name = 'MUSCLE'
+version = '5.0.1428'
+
+homepage = 'https://drive5.com/muscle/'
+description = """MUSCLE is widely-used software for making multiple alignments of biological sequences. 
+Version 5 of MUSCLE achieves highest scores on Balibase, Bralibase and Balifam benchmark tests. 
+This version supports generating an ensemble of alternative alignments with the same high accuracy obtained with default paramters. 
+By comparing downstream predictions from different alignments, such as trees, a biologist can evaluation the robustness of conclusions against alignment errors."""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+sources = [{
+    'filename': 'v%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://github.com/rcedgar',
+        'repo_name': '%(namelower)s',
+        'commit': '4b9837690ee4d05e7d6360c11461910b1b91287c'
+    },
+    'extract_cmd': 'tar xzf %s --strip-components=1',
+}]
+
+patches =["MUSCLE5_makefile.patch"]
+
+build_cmd = "make -C %(builddir)s/src -f ./Makefile"
+
+# don't use -static when linking, since that implies requiring glibc-static to be installed
+buildopts = 'CFLAGS="$CXXFLAGS" LDLIBS="-lm"'
+
+files_to_copy = [
+    (["src/o/muscle5"], 'bin')]
+
+sanity_check_paths = {
+    'files': ["bin/muscle5"],
+    'dirs': [],
+}
+
+moduleclass = 'bio'

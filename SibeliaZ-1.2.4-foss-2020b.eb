@@ -1,0 +1,45 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+easyblock = 'CMakeMake'
+
+name = 'SibeliaZ'
+version = '1.2.4'
+
+homepage = 'https://github.com/medvedevgroup/SibeliaZ'
+description = """SibeliaZ is a whole-genome alignment and locally-coliinear blocks construction pipeline. The blocks coordinates are output in GFF format and the alignment is in MAF."""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+dependencies = [
+        ('tbb', '2020.3'),  
+]
+
+builddependencies = [
+    ('git', '2.28.0','-nodocs'),
+    ('tbb', '2020.3'),  
+    ('CMake', '3.18.4')
+    ]
+
+sources = [{
+    'filename': SOURCE_TAR_GZ,
+    'git_config': {
+        'url': 'https://github.com/medvedevgroup/',
+        'repo_name': name,
+        'tag': 'v%(version)s',
+        'recursive': True,
+    },
+    'extract_cmd': 'tar xzf %s --strip-components=1',
+}]
+onlytcmod=True # will fail without this
+skipsteps=['install']
+prebuildopts = "cd build && "
+preconfigopts = "mkdir -p ./build && cd build && "
+build_cmd = " make install " 
+configure_cmd = "cmake .. -DCMAKE_INSTALL_PREFIX=%(installdir)s" 
+srcdir=''
+separate_build_dir=False
+
+
+sanity_check_commands = ['%(namelower)s -help']
+
+moduleclass = 'bio'

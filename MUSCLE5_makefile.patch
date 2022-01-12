@@ -1,0 +1,8 @@
+--- MUSCLE-5.0.1428/src/Makefile.orig	2021-12-06 09:31:04.329242198 +0100
++++ MUSCLE-5.0.1428/src/Makefile	2021-12-06 09:31:39.132804783 +0100
+@@ -1,4 +1,4 @@
+-CPP = ccache g++
++CPP = g++
+ CPPOPTS = -fopenmp -ffast-math -msse -mfpmath=sse -O3 -DNDEBUG -c
+ 
+ CC = ccache gcc

@@ -1,0 +1,7 @@
+--- Pangloss-0.9.1.orig/Pangloss.py	2019-08-05 14:50:46.000000000 +0200
++++ Pangloss-0.9.1/Pangloss.py	2021-10-17 19:21:23.469716706 +0200
+@@ -1,3 +1,4 @@
++#!/usr/bin/env python
+ # -*- coding: utf-8 -*-
+ """
+ Pangloss: A pipeline for pan-genome analysis of microbial eukaryotes.

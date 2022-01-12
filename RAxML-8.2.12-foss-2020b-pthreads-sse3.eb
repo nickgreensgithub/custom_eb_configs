@@ -1,0 +1,29 @@
+# Modified by: Nicholas Green
+easyblock = 'MakeCp'
+
+name = 'RAxML'
+version = '8.2.12'
+versionsuffix = '-pthreads-sse3'
+
+homepage = 'https://github.com/stamatak/standard-RAxML'
+description = "RAxML search algorithm for maximum likelihood based inference of phylogenetic trees."
+
+toolchain = {'name': 'foss', 'version': '2020b'} # changed toolchain
+toolchainopts = {'usempi': True}
+
+source_urls = ['https://github.com/stamatak/standard-RAxML/archive/']
+sources = ['v%(version)s.zip']
+checksums = ['abe6978c6027e897ebed67066836e4eadd57ecd0d042045634424dd001e86105']
+
+buildopts = '-f Makefile.SSE3.PTHREADS.gcc CC="$CC"'
+
+files_to_copy = [(["raxmlHPC-PTHREADS-SSE3"], "bin"), "usefulScripts", "README", "manual"]
+
+postinstallcmds = ["cd %(installdir)s/bin && ln -s raxmlHPC-PTHREADS-SSE3 raxmlHPC"] # params changed
+
+sanity_check_paths = {
+    'files': ['bin/raxmlHPC'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'

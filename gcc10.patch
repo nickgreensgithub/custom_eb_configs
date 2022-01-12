@@ -1,0 +1,14 @@
+Description: Fix package to build with GCC-10 from Debian
+Author: Nilesh Patra <npatra974@gmail.com>
+Last-Update: Sat, 18 Apr 2020 20:19:30 +0530
+--- a/rle.h
++++ b/rle.h
+@@ -30,7 +30,7 @@
+  *** 43+3 codec ***
+  ******************/
+ 
+-const uint8_t rle_auxtab[8];
++extern const uint8_t rle_auxtab[8];
+ 
+ #define RLE_MIN_SPACE 18
+ #define rle_nptr(block) ((uint16_t*)(block))

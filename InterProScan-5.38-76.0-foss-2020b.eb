@@ -1,0 +1,44 @@
+# Modified by: Erica Yashiro
+# Modified by: Nicholas Green
+easyblock = 'Tarball'
+
+name = 'InterProScan'
+version = '5.38-76.0' # changed
+
+homepage = 'http://www.ebi.ac.uk/interpro/'
+description = """InterProScan is a sequence analysis application (nucleotide and protein sequences) that combines
+ different protein signature recognition methods into one resource."""
+
+toolchain = {'name': 'foss', 'version': '2020b'} #changed
+
+sources = [
+    '%(namelower)s-%(version)s-64-bit.core.tar.gz',  #EY: added core to modified gz file
+    # note: unpacked this is ~30GB, mostly 5 *.hmm files
+    # this data can also be provided in another location, which can be specified in interproscan.properties
+    # EY: moved all data/ files to /space/databases/interproscan
+    # see https://github.com/ebi-pf-team/interproscan/wiki/HowToDownload#2-installing-panther-models
+    #'panther-data-12.0.tar.gz',   #EY: install panther manually in different location: /space/databases/interproscan
+]
+checksums = [
+    'e09d9a5c7f45407b2fdf1e98f1bef072917ade0da759f6f90558b283ead89e4b',  # EY interproscan-5.28-67.0-64-bit.core.tar.gz
+#    'bb8dcaeb68876b5abe7842ae1d65eecf15c43a0baea6be9514339b487167be79',  # panther-data-12.0.tar.gz
+]
+
+dependencies = [
+    ('Java', '11.0.5', '', True),
+    ('Perl', '5.32.0'),
+    ('libgd', '2.2.5'),
+    ('Python', '2.7.18'),
+]
+
+#postinstallcmds = ["cp -a %(builddir)s/panther %(installdir)s/data"]
+
+sanity_check_paths = {
+    'files': ['interproscan-%(version_major)s.jar', 'interproscan.sh', 'interproscan.properties'],
+    'dirs': ['bin', 'lib'],  #EY: remove: , 'data/panther/12.0'
+}
+
+# also include top install directory in $PATH, to make interproscan.sh available
+modextrapaths = {'PATH': ''}
+
+moduleclass = 'bio'

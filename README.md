@@ -1,1 +1,1 @@
-eb_configs
+Either Custom or modified easy build configs for installing server software

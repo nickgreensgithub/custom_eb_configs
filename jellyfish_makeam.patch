@@ -1,0 +1,11 @@
+--- ./Makefile.am.orig	2021-10-25 13:50:11.341039888 +0200
++++ ./Makefile.am	2021-10-25 13:50:40.108707621 +0200
+@@ -6,7 +6,7 @@
+ pkgconfig_DATA = jellyfish-1.1.pc
+ 
+ AM_LDFLAGS = -lpthread
+-AM_CPPFLAGS = -Wall -Wnon-virtual-dtor -I$(top_srcdir)
++AM_CPPFLAGS = -Wno-error -Wnon-virtual-dtor -I$(top_srcdir)
+ AM_CXXFLAGS = -g -O3
+ LDADD = libjellyfish-1.1.la
+ 

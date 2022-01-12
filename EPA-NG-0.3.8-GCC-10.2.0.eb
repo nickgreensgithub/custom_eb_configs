@@ -1,0 +1,40 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+easyblock = 'CMakeMakeCp'
+
+name = 'EPA-NG'
+version = '0.3.8'
+
+homepage = 'https://github.com/Pbdas/epa-ng'
+description = """EPA-ng is a complete rewrite of the Evolutionary Placement Algorithm (EPA), 
+previously implemented in RAxML. It uses libpll and pll-modules to perform maximum 
+likelihood-based phylogenetic placement of genetic sequences on a user-supplied reference tree and alignment"""
+
+toolchain = {'name': 'GCC', 'version': '10.2.0'}
+
+sources = [{
+    'filename': '%(name)s-%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://github.com/Pbdas/',
+        'repo_name': '%(namelower)s',
+        'tag': 'v%(version)s',
+        'recursive': True,
+        'keep_git_dir': True,
+    }
+}]
+checksums = [None]
+
+builddependencies = [
+    ('CMake', '3.18.4'),
+    ('Bison', '3.7.1'),
+    ('flex', '2.6.4'),
+    ('Autotools','20200321'),
+]
+files_to_copy = ['bin']
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'

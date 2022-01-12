@@ -1,0 +1,56 @@
+##
+# This is an easyconfig file for EasyBuild, see https://github.com/easybuilders/easybuild
+#
+# This is a contribution from Phoenix HPC Service, The University of Adelaide, Australia
+# Homepage: https://www.adelaide.edu.au/phoenix/
+#
+# Copyright::   adelaide.edu.au/phoenix
+# Authors::	Robert Qiao <robert.qiao@adelaide.edu.au>, Exe Escobedo <exequiel.sepulvedaescobedo@adelaide.edu.au>
+# License::	MIT
+#
+# 2.10.1:
+# Adam Huffman
+# The Francis Crick Institute
+# 2.18.11:
+# Jonas Demeulemeester
+# The Francis Crick Institute
+# 2.21.1
+# Pavel Grochal (INUITS)
+# 2.25.1
+# J. Sassmannshausen (GSTT)
+# 2.25.5
+# Erica Bianco (HPCNow!)
+# 2.26.2
+# Nicholas Green
+##
+
+easyblock = 'JAR'
+
+name = 'picard'
+version = '2.26.2' # changed version
+versionsuffix = '-Java-%(javaver)s'
+
+homepage = 'https://broadinstitute.github.io/picard/'
+description = """A set of tools (in Java) for working with next generation sequencing data in the BAM format."""
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/broadinstitute/picard/releases/download/%(version)s']
+sources = [{
+    'filename': '%(name)s-%(version)s.jar',
+    'download_filename': '%(name)s.jar',
+}]
+checksums = ['99fab1699a735fd048a05975a243774f1cc99e87a9b28311d4aa872d06390474'] # updated to match version
+
+postinstallcmds = ["mv %(installdir)s/%(name)s-%(version)s.jar %(installdir)s/%(name)s.jar"]
+
+dependencies = [('Java', '13.0.1', '', True)] # changed version to what we have installed
+
+sanity_check_paths = {
+    'files': ['picard.jar'],
+    'dirs': [],
+}
+
+modloadmsg = "To execute picard run: java -jar $EBROOTPICARD/%(name)s.jar"
+
+moduleclass = 'bio'

@@ -1,0 +1,90 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+easyblock = 'PythonPackage'
+
+name = 'DRAM'
+version = '1.2.4'
+
+homepage = 'https://github.com/shafferm/DRAM'
+description = """DRAM (Distilled and Refined Annotation of Metabolism) is a tool for annotating metagenomic assembled genomes and VirSorter identified viral contigs. DRAM annotates MAGs and viral contigs using KEGG (if provided by the user), UniRef90, PFAM, dbCAN, RefSeq viral, VOGDB and the MEROPS peptidase database as well as custom user databases. DRAM is run in two stages. First an annotation step to assign database identifiers to gene and then a distill step to curate these annotations into useful functional categories. Additionally viral contigs are further analyzed during to identify potential AMGs. This is done via assigning an auxiliary score and flags representing the confidence that a gene is both metabolic and viral."""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+source_urls = [PYPI_SOURCE+"-bio"]
+sources = ['%(name)s-bio-%(version)s.tar.gz']
+checksums = ['54b0c3c0c18cde2a5a48bae5c0b9bb4e']
+
+dependencies = [
+    ('Python', '3.8.6'),
+    ('SciPy-bundle','2020.11'),
+    ('prodigal','2.6.3'),
+    ('MMseqs2','13-45111'),
+    ('HMMER','3.3.2'),
+    ('tRNAscan-SE','2.0.9'),
+    ('barrnap','0.9'),
+]
+exts_default_options = {'source_urls': [PYPI_SOURCE]}
+exts_defaultclass = 'PythonPackage'
+
+exts_filter = ("python -c 'import %(ext_name)s'", '')
+
+exts_list = [
+	('altair', '4.1.0'),
+	('backcall', '0.2.0'),
+	('charset-normalizer', '2.0.7'),
+	('cycler', '0.11.0'),
+	('entrypoints', '0.3'),
+	('et-xmlfile', '1.1.0',{
+        'sources':['et_xmlfile-%(version)s.tar.gz']
+    }),
+	('greenlet', '1.1.2'),
+	('hdmedians', '0.14.2'),
+	('importlib-resources', '5.4.0',{
+        'sources':['importlib_resources-%(version)s.tar.gz']
+    }),
+	('ipython', '7.29.0',{'modulename': 'IPython'}),
+	('jedi', '0.18.0'),
+	('kiwisolver', '1.3.2'),
+	('matplotlib', '3.4.3'),
+	('matplotlib-inline', '0.1.3'),
+	('natsort', '8.0.0'),
+	('networkx', '2.6.3'),
+	('openpyxl', '3.0.9'),
+	('parso', '0.8.2'),
+	('pickleshare', '0.7.5'),
+	('Pillow', '8.4.0',{'modulename': 'PIL'}),
+	('prompt-toolkit', '3.0.22',{
+        'sources':['prompt_toolkit-%(version)s.tar.gz']
+    }),
+	('scikit-bio', '0.5.6',{'modulename': 'skbio'}),
+	('scikit-learn', '1.0.1',{'modulename': 'sklearn'}),
+	('SQLAlchemy', '1.4.26'),
+	('toolz', '0.11.2'),
+	('traitlets', '5.1.1'),
+]
+
+download_dep_fail = True
+use_pip = True
+
+options = {'modulename': False}
+
+
+# postinstallcmds = [
+#     'mkdir %(installdir)s/data',
+#     'cp %(builddir)s/data/* %(installdir)s/data',
+# 	'DRAM-setup.py export_config --output %(installdir)s/dram_config.text',
+# 	'sed -i "s/\/Users\/shafferm\/lab\//\/Users\/shafferm\/labs\//g" %(installdir)s/dram_config.text',
+# 	'DRAM-setup.py import_config --config_loc %(installdir)s/dram_config.text',
+# ]
+
+sanity_check_paths = {
+    'files': ['bin/DRAM.py'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+#User with permissions must run the DRAM-setup.py command (with appropriate parameters) to setup the databases
+
+sanity_check_commands=['DRAM.py --help']
+sanity_pip_check = True
+
+moduleclass = 'bio'

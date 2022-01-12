@@ -1,0 +1,34 @@
+# Modified by: Nicholas Green
+easyblock = 'ConfigureMake'
+
+name = 'pullseq'
+version = '1.0.2'
+
+homepage = 'https://github.com/bcthomas/pullseq'
+description = "Utility program for extracting sequences from a fasta/fastq file"
+
+toolchain = {'name': 'GCCcore', 'version': '10.2.0'} # Changed toolchain
+
+source_urls = ['https://github.com/bcthomas/pullseq/archive/']
+sources = ['%(version)s.tar.gz']
+checksums = ['a295d7e0e2d64ed05d293d795d1716376707e465f2c42ede6454f27db586c85f']
+
+builddependencies = [
+    ('binutils', '2.35'),#changed to match toolchain vesion
+    ('Autotools', '20200321'), # changed to match what's installed
+]
+
+dependencies = [
+    ('PCRE', '8.44'), # version change to match toolchain
+]
+
+#modified for gcc 10
+preconfigopts = 'export CFLAGS="$CFLAGS -fcommon" &&./bootstrap && '
+configopts = "CPPFLAGS='-fgnu89-inline'"
+
+sanity_check_paths = {
+    'files': ['bin/pullseq', 'bin/seqdiff'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'

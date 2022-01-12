@@ -1,0 +1,44 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+easyblock = 'MakeCp'
+
+name = 'krakenuniq'
+version = '0.6'
+
+homepage = 'https://github.com/fbreitwieser/krakenuniq'
+description = "confident and fast metagenomics classification using unique k-mer counts"
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+
+dependencies = [
+    ('Jellyfish', '1.1.12'),
+]
+
+source_urls = ['https://github.com/fbreitwieser/krakenuniq/archive/']
+sources = ['v%(version)s.zip']
+checksums = ['5ae2c1f391f77cbf5c027175aecb594650e809696f997a55a344817501ed57e9']
+
+start_dir="src"
+
+files_to_copy = [
+    (["scripts/*"], ""),
+    ("src/build_taxdb"), 
+    ("src/count_unique"), 
+    ("src/classify"), 
+    ("src/classifyExact"), 
+    ("src/db_shrink"), 
+    ("src/db_sort"), 
+    ("src/dump_taxdb"), 
+    ("src/query_taxdb"), 
+    ("src/read_uid_mapping"), 
+    ("src/set_lcas"), 
+]
+
+sanity_check_paths = {
+    'files': ['krakenuniq'],
+    'dirs': [],
+}
+modextrapaths = {"PATH":''}
+
+moduleclass = 'bio'

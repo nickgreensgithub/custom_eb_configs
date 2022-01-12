@@ -1,0 +1,39 @@
+# ###
+# Cactus easyconfig file
+#
+# Author: Erika Yashiro, Ph.D.
+# Date: 8 June 2021
+# Modified for v2.0.4 by: Nicholas Green
+# Date: 11 January 2022
+# ###
+
+easyblock = 'PackedBinary'
+
+name = 'Cactus'
+version = '2.0.4'
+
+homepage = 'https://github.com/ComparativeGenomicsToolkit/cactus/'
+description = "Cactus is a reference-free whole-genome multiple alignment program. Please cite the Progressive Cactus paper when using Cactus. "
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+source_urls = ['https://github.com/ComparativeGenomicsToolkit/%(namelower)s/releases/download/v%(version)s']
+sources = ['%(namelower)s-bin-v%(version)s.tar.gz']
+checksums = ['68e8d2a5cf15addc656ce25d1001931f4826ac6f2783a0e3c8f5b6a65c06e6e4']
+
+dependencies = [
+    ('Cactus-conda', '2021-08-19'),
+]
+
+postinstallcmds = ['cp -r %(builddir)s/%(namelower)s-bin-v%(version)s/* %(installdir)s/.']
+allow_prepend_abs_path = True
+install_cmd = "cd %(builddir)s/%(namelower)s-bin-v%(version)s/bin && for i in wigToBigWig faToTwoBit bedToBigBed bigBedToBed bedSort hgGcPercent; do wget -q http://hgdownload.cse.ucsc.edu/admin/exe/linux.%(arch)s/${i}; chmod ugo+x ${i}; done"
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['bin', 'lib'],
+}
+
+modextrapaths = {'PYTHONPATH': '%(installdir)s/lib'}
+
+moduleclass = 'bio'

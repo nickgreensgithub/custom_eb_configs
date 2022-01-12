@@ -1,0 +1,30 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+easyblock = 'PerlModule'
+
+name = 'Array-Utils'
+version = '0.5'
+
+homepage = 'https://metacpan.org/pod/Array::Utils'
+description = """Array::Utils - small utils for array manipulation"""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+source_urls = ['https://cpan.metacpan.org/authors/id/Z/ZM/ZMIJ/Array/']
+sources = [SOURCE_TAR_GZ]
+
+dependencies = [
+    ('Perl', '5.32.0'),
+]
+
+builddependencies = [
+    ('binutils', '2.35'),
+]
+
+options = {'modulename': 'Array::Utils'}
+
+sanity_check_paths = {
+    'files': ['lib/perl5/site_perl/%(perlver)s/Array/Utils.pm'],
+    'dirs': [],
+}
+
+moduleclass = 'data'

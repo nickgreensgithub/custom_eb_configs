@@ -1,0 +1,36 @@
+# This file is an EasyBuild reciPY as per https://easybuilders.github.io/easybuild/
+# Author: Pablo Escobar Lopez
+# sciCORE - University of Basel
+# SIB Swiss Institute of Bioinformatics
+# Modified by: Nicholas Green
+
+easyblock = 'CmdCp'
+
+name = 'tbl2asn'
+version = '20210930' # version changed
+versionsuffix = '-linux64'
+
+homepage = 'https://www.ncbi.nlm.nih.gov/genbank/tbl2asn2/'
+description = """Tbl2asn is a command-line program that automates the creation of
+ sequence records for submission to GenBank"""
+
+toolchain = SYSTEM
+
+source_urls = ['ftp://ftp.ncbi.nih.gov/toolbox/ncbi_tools/converters/by_program/tbl2asn/']
+sources = [{'download_filename': 'linux64.tbl2asn.gz', 'filename': '%(name)s-%(version)s%(versionsuffix)s.gz'}]
+checksums = ['f23f783fa01c6a895a9e6604d245d80e1e2f275b6995e7c63c2fa2e5ffabed16'] # cahnged for new version
+
+cmds_map = [('.*', "cp %(name)s-%(version)s%(versionsuffix)s tbl2asn")]
+
+files_to_copy = [
+    (['tbl2asn'], 'bin'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/tbl2asn'],
+    'dirs': [],
+}
+
+postinstallcmds = ["chmod +x %(installdir)s/bin/tbl2asn"]
+
+moduleclass = 'bio'

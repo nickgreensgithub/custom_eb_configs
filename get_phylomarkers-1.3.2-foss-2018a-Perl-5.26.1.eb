@@ -1,0 +1,69 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+easyblock = 'PackedBinary'
+
+name = 'get_phylomarkers'
+version = '1.3.2'
+
+
+homepage = 'https://github.com/eead-csic-compbio/get_phylomarkers/'
+description = """GET_HOMOLOGUES: a versatile software package for pan-genome analysis."""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+source_urls = ['https://github.com/vinuesa/get_phylomarkers/archive/refs/tags/']
+sources = ['v%(version)s.tar.gz']
+
+local_perl = "Perl"
+local_perlver = '5.26.1'
+versionsuffix = "-%s-%s" % (local_perl, local_perlver)
+
+dependencies = [
+    (local_perl, local_perlver),
+    ('R', '3.5.0', '-X11-20180131'),
+    ('cairo', '1.14.12'),
+    ('GD', '2.68', versionsuffix),
+    ('factoextra', '1.0.3'),
+    ('kdetrees', '0.1.5'),
+    ('Clustal-Omega', '1.2.4'),
+    ('FastTree', '2.1.10'),
+    ('PhiPack', '2016.06.14'),
+    ('IQ-TREE', '2.0-rc1'),
+    ('PAUP', '4.0a168','-ubuntu64', True),
+    ('PHYLIP', '3.697'),
+    ('newick_utils', '13042016'),
+    ('BioPerl', '1.7.2','-Perl-5.26.1'),
+    ('Xvfb', '1.20.9','',('GCCcore', '10.2.0')),#Cant get Xvfb to compile using the same toolchain version
+]
+
+modloadmsg = "May need to run the following commands if an error occurs with kdetrees step:\n"
+modloadmsg += "Xvfb :0 -ac -screen 0 1960x2000x24 &\n"
+modloadmsg += 'export DISPLAY=":0"'
+
+#Avoids the error, which is hidden by default inthe pipeline script
+#>>> Running with arguments: treefile all_gene_trees.tre k=1.5 ...
+# Loading required package: sm
+# Package 'sm', version 2.2-5.5: type help(sm) for summary information
+# Warning message:
+# In fun(libname, pkgname) : couldn't connect to display ":0"
+# Error in .External2(C_X11, d$display, d$width, d$height, d$pointsize,  : 
+#   unable to start device X11cairo
+# Calls: par -> x11
+# In addition: Warning message:
+# In x11() : unable to open connection to X11 display ''
+# Execution halted
+
+osdependencies = ['parallel']
+
+#Tests skipped because of hardcoded pwd causing issues
+# pretestopts = "export PWD=%(installdir)s/test_sequences/core_genome && "
+# tests=[
+#     '%(installdir)s/run_get_phylomarkers_pipeline.sh -R 1 -t DNA',
+#     '%(installdir)s/run_get_phylomarkers_pipeline.sh -R 1 -t PROT'
+# ]
+
+sanity_check_paths = {
+   'files': ["run_get_phylomarkers_pipeline.sh"],
+   'dirs': [],
+}
+
+moduleclass = 'bio'

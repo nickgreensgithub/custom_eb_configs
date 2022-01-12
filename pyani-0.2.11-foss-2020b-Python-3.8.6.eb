@@ -1,0 +1,55 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+
+easyblock = 'PythonBundle'
+
+name = 'pyani'
+version = '0.2.11'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'https://github.com/HuttonICS/pyani/'
+description = """Whole-genome classification using Average Nucleotide Identity."""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+dependencies = [
+    ('Python', '3.8.6'),
+    ('SciPy-bundle','2020.11'),
+    ('Biopython','1.78',versionsuffix),
+    ('BLAST+','2.11.0'),
+]
+
+exts_default_options = {'source_urls': [PYPI_SOURCE], 'modulename': False}
+exts_list = [
+	(name, version),
+    ('cycler','0.10.0'),
+    ('kiwisolver','1.3.2'),
+    ('matplotlib','3.4.3'),
+
+    ('Pillow','8.3.2'),
+    ('python-dateutil','2.8.2'),
+    ('pytz','2021.1'),
+
+    ('seaborn','0.11.2'),
+    ('six','1.16.0'),
+
+]
+
+use_pip = True
+
+sanity_check_paths = {
+    'files': [
+        'bin/average_nucleotide_identity.py', 
+        'bin/delta_filter_wrapper.py',
+        'bin/genbank_get_genomes_by_taxon.py'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+modloadmsg='''Run with:
+average_nucleotide_identity.py\n or \n
+delta_filter_wrapper.py\n or \n
+genbank_get_genomes_by_taxon.py\n 
+'''
+
+moduleclass = 'bio'
+

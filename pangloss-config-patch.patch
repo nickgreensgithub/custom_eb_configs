@@ -1,0 +1,22 @@
+--- Pangloss-0.9.1.orig/config.ini	2019-08-05 14:50:46.000000000 +0200
++++ Pangloss-0.9.1/config.ini	2021-10-17 19:27:26.274705122 +0200
+@@ -12,15 +12,15 @@
+ ## dataset HAS to be relative to your working
+ ## directory or BUSCO will complain.
+ [Quality_control_dependencies]
+-busco_path = /usr/local/bin/busco-master/scripts/run_BUSCO.py
++busco_path = run_BUSCO.py
+ busco_lineage_path = ./saccharomycetales_odb9
+ 
+ ## Paths for selection and GO analysis. MUSCLE and yn00 paths
+ ## MUST be full paths because of how they're called in Pangloss.
+ [Analysis_dependencies]
+-muscle_path = /usr/local/bin/muscle
+-yn00_path = /usr/local/bin/yn00
+-ips_path = /ichec/work/nmlif040b/interproscan-5.34-73.0/interproscan.sh
++muscle_path = muscle
++yn00_path = yn00
++ips_path = interproscan.sh
+ goslim_path = goslim_generic.obo
+ go_path = go.obo
+ 

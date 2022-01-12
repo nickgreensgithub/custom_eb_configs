@@ -1,0 +1,38 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+
+easyblock = 'PythonBundle'
+
+name = 'ncbi-genome-download'
+version = '0.3.1'
+
+homepage = 'https://github.com/kblin/ncbi-genome-download'
+description = """Some script to download bacterial and fungal genomes from NCBI after they restructured their FTP a while ago."""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+exts_default_options = {'source_urls': [PYPI_SOURCE], 'modulename': False}
+exts_list = [
+	(name, version),
+	("certifi", "2021.10.8"),
+	("charset-normalizer", "2.0.9"),
+	("idna", "3.3"),
+	("requests", "2.26.0"),
+	("tqdm", "4.62.3"),
+	("urllib3", "1.26.7"),
+]
+
+dependencies = [
+     ('Python', '3.8.6'),
+]
+
+use_pip = True
+
+sanity_check_paths = {
+   'files': [],
+   'dirs': ['lib/python%(pyshortver)s/site-packages/ncbi_genome_download'],
+}
+
+moduleclass = 'tools'
+
+

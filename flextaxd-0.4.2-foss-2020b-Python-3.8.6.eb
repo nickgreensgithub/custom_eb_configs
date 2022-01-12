@@ -1,0 +1,44 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+easyblock = 'PythonPackage'
+
+name = 'flextaxd'
+version = '0.4.2'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'https://github.com/FOI-Bioinformatics/flextaxd'
+description = "Flexible Taxonomy Databases - A cross platform tool for customization and merging of various taxonomic classification sources."
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+source_urls = ['https://github.com/FOI-Bioinformatics/flextaxd/archive']
+sources = ['v%(version)s.tar.gz']
+
+dependencies = [
+    ('Python', '3.8.6'), 
+    ('Biopython', '1.78', versionsuffix), 
+    ('krakenuniq', '0.6'),
+    ('Centrifuge', '1.0.4'),
+    ('Kraken2', '2.1.1'),
+    ('ganon', '1.0.0'),
+]
+
+exts_default_options = {'source_urls': [PYPI_SOURCE], 'modulename': False}
+
+exts_defaultclass = 'PythonPackage'
+
+exts_list = [
+    ('ncbi-genome-download','0.3.0')
+]
+
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages','bin'],
+}
+
+download_dep_fail = True
+use_pip = True
+sanity_pip_check = True
+
+moduleclass = 'bio'

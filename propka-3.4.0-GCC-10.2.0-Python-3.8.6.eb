@@ -1,0 +1,47 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+easyblock = 'PythonPackage'
+
+name = 'propka'
+version = '3.4.0'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'https://github.com/jensengroup/propka'
+description = "PROPKA predicts the pKa values of ionizable groups in proteins and protein-ligand complexes based on the 3D structure."
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+source_urls = [PYPI_SOURCE]
+sources = [SOURCE_TAR_GZ]
+checksums = ['f19c2e145faa7eab000ce056a9058b8a30adba6970705047bb4fb7ba7570b020']
+
+dependencies = [
+    ('Python', '3.8.6'),
+    ('SciPy-bundle','2020.11'),
+]
+
+exts_filter = ("python -c 'import %(ext_name)s'", '')
+
+exts_defaultclass = 'PythonPackage'
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE], 
+}
+
+exts_list = [
+    ('pytest','6.2.5'),
+    ('Sphinx','4.4.0'),
+    ('sphinx_rtd_theme','1.0.0'),
+    ('sphinx-sitemap','2.2.0'),
+    ('sphinxcontrib-htmlhelp','2.0.0',{'modulename': 'sphinxcontrib.htmlhelp'}),
+    ('sphinxcontrib-serializinghtml','1.1.5',{'modulename': 'sphinxcontrib.serializinghtml'}),
+    ('importlib-metadata','4.10.1',{
+        'source_tmpl': 'importlib_metadata-%(version)s.tar.gz',
+    }),
+]
+
+download_dep_fail = True
+use_pip = True
+sanity_pip_check = True
+
+moduleclass = 'bio'

@@ -1,0 +1,21 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+easyblock = 'Conda'
+
+name = 'coinfinder'
+version = '1.1.0'
+
+homepage = 'https://github.com/fwhelan/coinfinder'
+description = """A tool for the identification of coincident (associating and dissociating) genes in pangenomes."""
+checksums = ['f90cbd04e123ba62a735b16af556442ff06dc7b2c124681ba89b245c1121a93f']
+
+requirements = "%(namelower)s=%(version)s"
+channels = ['defaults', 'bioconda', 'conda-forge']
+
+toolchain = SYSTEM
+
+builddependencies = [('Miniconda3','4.9.2','',('foss','2020b'))]
+
+sanity_check_commands = ['coinfinder']
+
+moduleclass = 'bio'

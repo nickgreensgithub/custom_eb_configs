@@ -1,0 +1,52 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+
+easyblock = 'Tarball'
+
+name = 'PMDtools'
+version = '0.60'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'https://github.com/pontussk/PMDtools'
+description = """PMDtools computes ancient DNA damage patterns, and implements a likelihood framework incorporating postmortem damage (PMD), base quality scores and biological polymorphism to identify degraded DNA sequences that are unlikely to originate from modern contamination. Using the model, each sequence is assigned a PMD score, for which positive values indicate support for the sequence being genuinely ancient. For details of the method, please see the main paper in PNAS.
+
+PMDtools takes SAM-formatted input, and requires an MD tag with alignment information. The MD tag is featured in the output of many aligners but can otherwise be added e.g. using the SAMtools fillmd/calmd tool (Li, Handsaker et al. 2009).
+"""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+source_urls = [GITHUB_LOWER_SOURCE]
+sources = [{
+   'filename': 'PMDtools.tar.gz',
+   'git_config': {
+       'url': 'https://github.com/pontussk',
+       'repo_name': 'PMDtools',
+       'tag': '%(version)s',
+   },
+}]
+
+dependencies = [
+     ('Python', '3.8.6'),
+     ('R', '4.0.3'),
+     ('SAMtools', '1.14'),
+]
+
+postinstallcmds = [
+    "cd %(installdir)s",
+    "chmod a+x %(installdir)s/*",
+]
+
+
+sanity_check_paths = {
+   'files': ['pmdtools.%(version)s.py'],
+   'dirs': [],
+}
+
+modextrapaths = {
+    'PATH': '',
+}
+
+
+moduleclass = 'bio'
+
+

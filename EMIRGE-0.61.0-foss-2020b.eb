@@ -1,0 +1,41 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+easyblock = 'Conda'
+
+name = 'EMIRGE'
+version = '0.61.1'
+
+homepage = 'https://github.com/csmiller/EMIRGE'
+
+description = """EMIRGE reconstructs full length ribosomal genes from short read
+sequencing data.  In the process, it also provides estimates of the
+sequences' abundances.
+
+EMIRGE uses a modification of the EM algorithm to iterate between
+estimating the expected value of the abundance of all SSU sequences
+present in a sample and estimating the probabilities for each read
+that a specific sequence generated that read.  At the end of each
+iteration, those probabilities are used to re-calculate (correct) a
+consensus sequence for each reference SSU sequence, and the mapping is
+repeated, followed by the estimations of probabilities.  The
+iterations should usually stop when the reference sequences no longer
+change from one iteration to the next.  Practically, 40-80 iterations is
+usually sufficient for many samples.  Right now EMIRGE uses Bowtie
+alignments internally, though in theory a different mapper could be
+used.
+
+EMIRGE was designed for Illumina reads in FASTQ format, from pipeline
+version >= 1.3"""
+
+requirements = "%(namelower)s=%(version)s glibc=2.12.2"
+channels = ['bioconda','mgckind']
+
+toolchain = SYSTEM
+
+#Requires symlink for usearch to be created called 'usearch'
+#ln -s /space/sharedbin_ubuntu_14_04/bin/usearch11 %(installdir)s/usearch"
+
+builddependencies = [('Miniconda3','4.9.2','',('foss','2020b'))]
+
+sanity_check_commands = ['emirge.py --help', 'bowtie --help']
+moduleclass = 'bio'

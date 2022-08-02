@@ -1,0 +1,51 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+
+easyblock = 'Tarball'
+
+name = 'Phyloflash'
+version = '3.4'
+
+homepage = 'https://github.com/HRGV/phyloFlash'
+description = """phyloFlash is a pipeline to rapidly reconstruct the SSU rRNAs and explore phylogenetic composition of an Illumina (meta)genomic or transcriptomic dataset. """
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+dependencies = [
+    ('Perl','5.32.0'),
+    ('R','4.0.3'),
+    ('VSEARCH','2.18.0'),
+    ('BEDTools','2.30.0'),
+    ('MAFFT','7.470','-with-extensions'),
+    ('barrnap','0.9'),
+    ('EMIRGE','0.61.1','',True),
+    ('BBMap','38.90'),
+    ('SPAdes','3.15.2'),
+]
+
+local_r_component_specs = {
+    'source_urls': [
+        'http://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'http://cran.freestatistics.org/src/contrib',  # alternative for packages
+        'http://cran.r-project.org/src/contrib/',  # current version of packages
+
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+exts_defaultclass = 'RPackage'
+
+exts_list=[
+    ('ggdendro', '0.1.23', local_r_component_specs),
+]
+
+source_urls = ['https://github.com/HRGV/%(namelower)s/archive']
+sources = ['pf%(version)s.tar.gz']
+checksums = ['e03dd529bb23103bf28a7fe383b6c1e44f5fc14e29a9d001911ba61b1118b92d']
+
+sanity_check_paths = {
+    'files': ['phyloFlash.pl'],
+    'dirs': []
+}
+
+moduleclass = 'bio'

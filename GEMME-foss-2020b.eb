@@ -1,0 +1,53 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+
+easyblock = 'Tarball'
+
+name = 'GEMME'
+
+version= ''
+
+homepage = 'http://www.lcqb.upmc.fr/GEMME/'
+description = """A fast, scalable and simple method to predict mutational landscapes from natural sequences
+"""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+source_urls = ['http://www.lcqb.upmc.fr/GEMME/package/']
+sources = ['%(name)s.tgz']
+
+dependencies = [
+    ('Python', '2.7.18'),
+    ('R', '4.0.3'),
+    ('JET2', '09062022'),
+]
+
+postinstallcmds = [
+    "sed -i 's|/usr/bin/muscle|muscle|' %(installdir)s/default.conf",
+    "sed -i 's|/opt/JET/naccess2.1.1/naccess|naccess|' %(installdir)s/default.conf",
+    "sed -i 's|/usr/local/bin/clustalw2|clustalw2|' %(installdir)s/default.conf",
+    "sed -i 's|/opt/blast-2.2.27+/bin/psiblast|psiblast|' %(installdir)s/default.conf",
+    "sed -i 's|/opt/JET/matrix|%(installdir)s/matrix|' %(installdir)s/default.conf",
+    "sed -i 's|/opt/JET/jet/data/enzyme.txt|%(installdir)s/jet/data/enzyme.txt|' %(installdir)s/default.conf",
+    "sed -i 's|/opt/JET/jet/data/clusters95.txt|%(installdir)s/jet/data/clusters95.txt|' %(installdir)s/default.conf",
+
+    #This is set to where we store the blast databases on the bioservers, might change in the future
+    "sed -i 's|/opt/blast-2.2.27+/db/|/space/databases/blast/|' %(installdir)s/default.conf",
+    "cd %(installdir)s",
+    "chmod a+x %(installdir)s/*",
+]
+
+
+sanity_check_paths = {
+    'files': ['gemme.py'],
+    'dirs': [],
+}
+
+modextrapaths = {
+    'PATH': '',
+    'GEMME_PATH': ''
+}
+
+moduleclass = 'bio'
+
+

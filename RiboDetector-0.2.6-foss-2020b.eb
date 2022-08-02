@@ -1,0 +1,21 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+easyblock = 'Conda'
+
+name = 'RiboDetector'
+version = '0.2.6'
+
+homepage = 'https://github.com/hzi-bifo/RiboDetector'
+description = """RiboDetector is a software developed to accurately yet rapidly detect and remove rRNA sequences from metagenomeic, metatranscriptomic, and ncRNA sequencing data."""
+checksums = ['4c2a77253889453a59f7100d6f79161005cf90711e5d58e78bf1accb75bf61e0']
+
+requirements = '%(namelower)s=%(version)s python=3.8'
+channels = ['defaults', 'bioconda', 'conda-forge']
+
+toolchain = SYSTEM
+
+builddependencies = [('Miniconda3','4.9.2','',('foss','2020b'))]
+
+sanity_check_commands = ['ribodetector -h']
+
+moduleclass = 'bio'

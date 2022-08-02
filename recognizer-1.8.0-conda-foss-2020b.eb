@@ -1,0 +1,30 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+
+easyblock = 'Conda'
+
+name = 'recognizer'
+version = '1.8.0'
+
+homepage = 'https://github.com/iquasere/reCOGnizer'
+description = """A tool for domain based annotation with databases from the Conserved Domains Database.
+"""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+builddependencies = [
+    ('Miniconda3', '4.9.2'),
+]
+
+channels = [
+    'bioconda',
+    'conda-forge',
+]
+requirements = '%(name)s'
+
+sanity_check_paths = {
+    'files': ['bin/%(name)s.py'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'

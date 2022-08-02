@@ -1,0 +1,38 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+easyblock = 'CMakeMake'
+name = 'libcifpp'
+version = '3.0.0'
+
+homepage = 'https://github.com/PDB-REDO/libcifpp'
+description = """This library contains code to work with mmCIF and PDB files."""
+
+toolchain = {'name': 'GCC', 'version': '10.2.0'}
+
+sources = [{
+    'filename': '%(name)s-%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://github.com/PDB-REDO/',
+        'repo_name': '%(namelower)s',
+        'tag': 'v%(version)s',
+        'recursive': False,
+        'keep_git_dir': False,
+    }
+}]
+
+dependencies = [
+    ('Boost', '1.74.0')
+]
+
+separate_build_dir = True
+
+builddependencies = [
+    ('CMake', '3.18.4'),
+]
+
+sanity_check_paths = {
+    'files': ['lib/libcifpp.a'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'

@@ -1,0 +1,13 @@
+--- ./chromedriverbinaryauto/setup.py.orig	2021-03-05 10:09:25.000000000 +0100
++++ ./chromedriverbinaryauto/setup.py	2022-02-17 12:53:30.405173219 +0100
+@@ -3,6 +3,10 @@
+ from chromedriver_binary.utils import get_chromedriver_filename, get_chromedriver_url, find_binary_in_path, \
+     check_version, get_chrome_major_version, get_latest_release_for_version
+ 
++import ssl
++
++ssl._create_default_https_context = ssl._create_unverified_context
++
+ import os
+ import zipfile
+ 

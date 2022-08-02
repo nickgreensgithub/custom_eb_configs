@@ -1,0 +1,20 @@
+--- ./ddgun_seq.orig.py	2022-06-03 09:19:46.469018126 +0200
++++ ./ddgun_seq.py	2022-06-03 10:00:39.877815860 +0200
+@@ -37,15 +37,14 @@
+ data_path=prog_path+'/data'
+ tool_path=prog_path+'/tools'
+ util_path=prog_path+'/utils'
+-data_path=prog_path+'/data'
+ sys.path.append(tool_path)
+ 
+ from hsspTools import readHSSP, hssp2dic
+ 
+ aalist='ARNDCQEGHILKMFPSTWYV'
+ pprof=tool_path+'/ali2prof.py'
+-pblast=util_path+'/hh-suite/bin/hhblits'
+-uniref90=data_path+'/uniclust30_2018_08/uniclust30_2018_08'
++pblast='hhblits'
++uniref90=os.getenv('DDGUN_UNICLAST_LOCATION', default = data_path+'/uniclust30_2018_08/uniclust30_2018_08')
+ 
+ 
+ 

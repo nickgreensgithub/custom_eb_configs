@@ -1,0 +1,22 @@
+--- ./ddgun_3d.orig.py	2022-06-03 09:19:46.469018126 +0200
++++ ./ddgun_3d.py	2022-06-03 10:01:19.669072026 +0200
+@@ -37,7 +37,6 @@
+ data_path=prog_path+'/data'
+ tool_path=prog_path+'/tools'
+ util_path=prog_path+'/utils'
+-data_path=prog_path+'/data'
+ sys.path.append(tool_path)
+ 
+ 
+@@ -46,9 +45,9 @@
+ from hsspTools import readHSSP, hssp2dic
+ aalist='ARNDCQEGHILKMFPSTWYV'
+ pprof=tool_path+'/ali2prof.py'
+-pblast=util_path+'/hh-suite/bin/hhblits'
++pblast='hhblits'
+ pdssp=util_path+'/dssp/dsspcmbi'
+-uniref90=data_path+'/uniclust30_2018_08/uniclust30_2018_08'
++uniref90=os.getenv('DDGUN_UNICLAST_LOCATION', default = data_path+'/uniclust30_2018_08/uniclust30_2018_08')
+ at=pdb.HeavyAtomType
+ 
+ 

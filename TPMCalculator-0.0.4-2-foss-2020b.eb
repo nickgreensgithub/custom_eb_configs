@@ -1,0 +1,26 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+easyblock = 'Conda'
+name= "TPMCalculator"
+version = '0.0.4'
+homepage = 'https://github.com/ncbi/TPMCalculator'
+description = """TPMCalculator quantifies mRNA abundance directly from the alignments by parsing BAM files. The input parameters are the same GTF files used to generate the alignments, and one or multiple input BAM file(s) containing either single-end or paired-end sequencing reads. The TPMCalculator output is comprised of four files per sample reporting the TPM values and raw read counts for genes, transcripts, exons and introns respectively."""
+toolchain = {'name': 'foss', 'version': '2020b'}
+builddependencies = [('Miniconda3','4.9.2')]
+channels = ['bioconda']
+
+requirements = "tpmcalculator=0.0.4"
+
+dependencies = [
+    ('BamTools', '2.5.1'),
+    ('zlib', '1.2.11'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/TPMCalculator'],
+    'dirs': ['bin'],
+}
+
+sanity_check_commands = ['TPMCalculator -version']
+
+moduleclass = 'bio'

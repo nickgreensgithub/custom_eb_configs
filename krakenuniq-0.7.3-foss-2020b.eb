@@ -1,0 +1,44 @@
+easyblock = 'MakeCp'
+
+name = 'krakenuniq'
+version = '0.7.3'
+
+homepage = 'https://github.com/fbreitwieser/krakenuniq'
+description = "confident and fast metagenomics classification using unique k-mer counts"
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+
+dependencies = [
+    ('Jellyfish', '1.1.12'),
+]
+
+source_urls = ['https://github.com/fbreitwieser/krakenuniq/archive/']
+sources = ['v%(version)s.zip']
+checksums = ['579daced869a46c97cda3027cae3bf8ad915c8bb1aeea255e14c23e5b84c5b78']
+
+start_dir="src"
+
+files_to_copy = [
+    (["scripts/*"], ""),
+    ("src/build_taxdb"), 
+    ("src/count_unique"), 
+    ("src/classify"), 
+    ("src/classifyExact"), 
+    ("src/db_shrink"), 
+    ("src/db_sort"), 
+    ("src/dump_taxdb"), 
+    ("src/query_taxdb"), 
+    ("src/read_uid_mapping"), 
+    ("src/set_lcas"), 
+]
+
+#postinstallcmds = ["cd %(installdir)s/bin && ln -s raxmlHPC-PTHREADS-SSE3 raxmlHPC"]
+
+sanity_check_paths = {
+    'files': ['krakenuniq'],
+    'dirs': [],
+}
+modextrapaths = {"PATH":''}
+
+moduleclass = 'bio'

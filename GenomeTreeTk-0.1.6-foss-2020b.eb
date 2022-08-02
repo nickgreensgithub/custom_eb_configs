@@ -1,0 +1,36 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+
+easyblock = 'PythonBundle'
+
+name = 'GenomeTreeTk'
+version = '0.1.6'
+
+homepage = 'https://github.com/dparks1134/GenomeTreeTk'
+description = """The genome tree toolkit is a collection of methods for working with genome trees. It is primarily intended to be used by the GTDB curation team, but has been made available in case others find it useful."""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+dependencies = [
+    ('Python', '3.8.6'),
+    ('DendroPy','4.5.2'),
+    ('SciPy-bundle','2020.11'),
+    ('biolib','0.1.8'),
+]
+
+exts_default_options = {'source_urls': [PYPI_LOWER_SOURCE], 'modulename': False}
+exts_list = [
+	(name, version),
+]
+
+use_pip = True
+
+sanity_check_paths = {
+    'files': [
+        'bin/genometreetk'
+        ],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+moduleclass = 'bio'
+

@@ -1,0 +1,61 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+
+easyblock = 'Tarball'
+
+name = 'DDGun'
+version = '03062022'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'https://github.com/biofold/ddgun'
+description = """DDGun is an untrained method for predicting the stability change upon mutation
+"""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+source_urls = [GITHUB_LOWER_SOURCE]
+sources = [{
+    'filename': 'ddgun.tar.gz',
+    'git_config': {
+        'url': 'https://github.com/biofold',
+        'repo_name': 'ddgun',
+        'commit': 'c915472',
+    },
+    'extract_cmd': 'tar xzf %s --strip-components=1',
+}]
+
+dependencies = [
+    ('Python', '3.8.6'),
+    ('Biopython', '1.78',versionsuffix),
+    ('SciPy-bundle', '2020.11',versionsuffix),
+    ('HH-suite', '3.3.0'),
+]
+
+postinstallcmds = [
+    "cd %(installdir)s",
+    "chmod a+x %(installdir)s/*",
+]
+
+patches = [
+    'ddgun_3d.patch',
+    'ddgun_seq.patch'
+]
+
+sanity_check_paths = {
+    'files': ['ddgun_3d.py','ddgun_seq.py'],
+    'dirs': ['tools','utils'],
+}
+
+#Have to download http://wwwuser.gwdg.de/~compbiol/uniclust/2018_08/uniclust30_2018_08_hhsuite.tar.gz and extract it to this folder
+modextravars = {
+    'DDGUN_UNICLAST_LOCATION': '/databases/ddgun/uniclust30_2018_08/uniclust30_2018_08'
+}
+
+
+modextrapaths = {
+    'PATH': '',
+}
+
+moduleclass = 'bio'
+
+

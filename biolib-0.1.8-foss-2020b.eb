@@ -1,0 +1,31 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+
+easyblock = 'PythonPackage'
+
+name = 'biolib'
+version = '0.1.8'
+
+homepage = 'http://pypi.python.org/pypi/biolib/'
+description = "Package for common tasks in bioinformatic."
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+source_urls = [PYPI_SOURCE]
+sources = [SOURCELOWER_TAR_GZ]
+checksums = ['6c4d31a20b5ff37e0298e25b451851d71db1b6d130df5e0744b04bee735b5ff2']
+
+dependencies = [
+    ('Python', '3.8.6'),
+]
+
+installopts = " --no-deps  --ignore-installed "
+
+use_pip = True
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+moduleclass = 'bio'

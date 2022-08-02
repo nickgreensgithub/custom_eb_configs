@@ -1,0 +1,49 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+easyblock = 'PythonPackage'
+
+name = 'HTSeq'
+version = '2.0.2'
+
+homepage = 'https://github.com/htseq/htseq'
+description = """HTSeq is a Python library to facilitate processing and analysis
+ of data from high-throughput sequencing (HTS) experiments."""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+source_urls = [PYPI_SOURCE]
+sources = [SOURCE_TAR_GZ]
+
+checksums = ['e2c7442d6ff3f97293cfa0da276576f0996eae0a66eb3c2006332ef198f7ea09']
+
+dependencies = [
+    ('Python', '3.8.6'),
+    ('Pysam', '0.18.0'),
+    ('SciPy-bundle', '2020.11'),
+    ('matplotlib', '3.5.1'),
+    ('Cython', '0.29.22'),
+]
+
+exts_default_options = {'source_urls': [PYPI_SOURCE]}
+exts_defaultclass = 'PythonPackage'
+exts_filter = ("python -c 'import %(ext_name)s'", '')
+
+exts_list = [
+	('pyBigWig', '0.3.18',{'modulename': 'pyBigWig'}),
+]
+
+use_pip = True
+download_dep_fail = True
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s-count', 'bin/%(namelower)s-qa'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages/%(name)s/scripts'],
+}
+
+sanity_check_commands = ['%(namelower)s-count --help']
+
+sanity_pip_check = True
+
+options = {'modulename': '%(name)s'}
+
+moduleclass = 'bio'

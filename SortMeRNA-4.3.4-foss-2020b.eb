@@ -1,0 +1,22 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+easyblock = 'Conda'
+name= "sortmerna"
+version = '4.3.4'
+homepage = 'https://github.com/biocore/sortmerna'
+description = """SortMeRNA is a local sequence alignment tool for filtering, mapping and clustering."""
+toolchain = {'name': 'foss', 'version': '2020b'}
+builddependencies = [('Miniconda3','4.9.2')]
+channels = ['bioconda']
+
+requirements = "python=3.6 %(namelower)s=%(version)s"
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [],
+}
+
+sanity_check_commands = [
+]
+
+moduleclass = 'bio'

@@ -1,0 +1,41 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+
+easyblock = 'Tarball'
+
+name = 'rpsbproc'
+version = '29062022'
+
+homepage = 'https://github.com/iquasere/reCOGnizer'
+description = """It post-processes the results of local RPS-BLAST searches in order to provide a 
+non-redundant view of the search results, and to provide additional annotation 
+on query sequences, such as domain superfamilies and functional sites, similar to 
+the annotation provided by the corresponding web services (e.g., the NCBI Batch
+CD-Search web service at  
+http://www.ncbi.nlm.nih.gov/Structure/bwrpsb/bwrpsb.cgi).  
+"""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+source_urls = [GITHUB_SOURCE]
+source_urls = ['https://ftp.ncbi.nih.gov/pub/mmdb/cdd/rpsbproc/']
+sources = ['RpsbProc-x64-linux.tar.gz']
+
+dependencies = [
+]
+
+postinstallcmds = [
+    "chmod a+x %(installdir)s/*",
+]
+
+sanity_check_paths = {
+    'files': ['rpsbproc'],
+    'dirs': [],
+}
+
+
+modextrapaths = {
+    'PATH': '',
+}
+
+moduleclass = 'bio'

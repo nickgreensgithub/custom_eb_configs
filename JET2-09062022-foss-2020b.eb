@@ -1,0 +1,57 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+import re
+
+easyblock = 'Tarball'
+
+name = 'JET2'
+
+version= '09062022'
+
+escaped_install_path = "%(installdir)s".replace("/","\/")
+homepage = 'http://www.lcqb.upmc.fr/JET2/JET2.html'
+description = """A large-scale method to predict protein-protein interfaces based on sequence and structure information.
+"""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+sources = [{
+    'source_urls':["http://www.lcqb.upmc.fr/JET2/package/"],
+    'filename': '%(name)s.tgz',
+    'extract_cmd': 'tar xzf %s --strip-components=1',
+}]
+
+dependencies = [
+    ('Java', '11.0.2', '', True), # Should be Java 6, but that might be a pain to install
+    ('MUSCLE', '3.8.31'),
+    ('BLAST+', '2.12.0'),
+    ('naccess', '2.1.1'),
+    ('ClustalW2', '2.1'),
+]
+
+#Replacing hardcoded executable paths in config file
+postinstallcmds = [
+    "sed -i 's|/usr/bin/muscle|muscle|' %(installdir)s/default.conf",
+    "sed -i 's|/opt/JET/naccess2.1.1/naccess|naccess|' %(installdir)s/default.conf",
+    "sed -i 's|/usr/local/bin/clustalw2|clustalw2|' %(installdir)s/default.conf",
+    "sed -i 's|/opt/blast-2.2.27+/bin/psiblast|psiblast|' %(installdir)s/default.conf",
+    "sed -i 's|/opt/JET/matrix|%(installdir)s/matrix|' %(installdir)s/default.conf",
+    "sed -i 's|/opt/JET/jet/data/enzyme.txt|%(installdir)s/jet/data/enzyme.txt|' %(installdir)s/default.conf",
+    "sed -i 's|/opt/JET/jet/data/clusters95.txt|%(installdir)s/jet/data/clusters95.txt|' %(installdir)s/default.conf",
+
+    #This is set to where we store the blast databases on the bioservers, might change in the future
+    "sed -i 's|/opt/blast-2.2.27+/db/|/space/databases/blast/|' %(installdir)s/default.conf",
+    "chmod a+x %(installdir)s/jet/extLibs/*.jar"
+]
+
+sanity_check_paths = {
+    'files': ['jet/extLibs/vecmath.jar'],
+    'dirs': [],
+}
+
+modextrapaths = {
+    'PATH': 'jet/extLibs/',
+    'JET2_PATH': ''
+}
+
+moduleclass = 'bio'

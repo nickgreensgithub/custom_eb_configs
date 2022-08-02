@@ -1,0 +1,38 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+
+#First you need to download and extract naccess, you'rerequired to sign a confidentiality agreement and get a decryption key
+easyblock = 'PackedBinary'
+
+name = 'naccess'
+
+version= '2.1.1'
+
+homepage = 'http://www.bioinf.manchester.ac.uk/naccess/'
+description = """Naccess is a stand alone program that calculates the accessible area of a molecule from a PDB (Protein Data Bank) format file
+"""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+sources = [{
+    'filename': '%(name)s.tar.gz',
+    'extract_cmd': 'tar xzf %s --strip-components=1',
+}]
+
+dependencies = []
+#Also requires# apt install libf2c2-dev
+
+osdependencies = ['fort77','gfortran']
+
+postinstallcmds = ["cd %(installdir)s && csh ./install.scr"]
+
+sanity_check_paths = {
+    'files': ['naccess'],
+    'dirs': [],
+}
+
+modextrapaths = {
+    'PATH': '',
+}
+
+moduleclass = 'bio'

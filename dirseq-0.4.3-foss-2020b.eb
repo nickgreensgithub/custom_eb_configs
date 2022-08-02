@@ -1,0 +1,45 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+easyblock = 'Bundle'
+
+name = 'dirseq'
+version = '0.4.3'
+
+local_rubyver = '2.7.2'
+
+homepage = 'https://github.com/wwood/dirseq'
+description = """DirSeq work out whether RNAseq reads from metatranscriptomes are generally in the same direction as the ORF predicted, and provide gene-wise coverages using DNAseq mappings."""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+dependencies = [
+    ('Ruby', local_rubyver),
+    ('SAMtools', '1.14'),
+    ('BEDTools', '2.30.0'),
+    ]
+
+exts_defaultclass = 'RubyGem'
+
+exts_list = [
+    ('systemu','2.6.5'),
+    ('log4r','1.1.9'),
+    ('bio-logger','1.0.0'),
+    ('bio-commandeer','0.1.3'),
+    ('bio','1.4.3.0001'),
+    (name, version),    
+]
+
+exts_default_options = {
+    'source_urls': ['http://rubygems.org/downloads/'],
+    'source_tmpl': '%(name)s-%(version)s.gem',
+}
+
+sanity_check_paths = {
+    'files': ['bin/dirseq'],
+    'dirs': ['gems/%(namelower)s-%(version)s'],
+}
+
+
+modextrapaths = {'GEM_PATH': ['']}
+
+moduleclass = 'bio'

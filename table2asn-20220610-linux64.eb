@@ -1,0 +1,31 @@
+# This file is an EasyBuild reciPY as per https://easybuilders.github.io/easybuild/
+# Modified by: Nicholas Green
+
+easyblock = 'Tarball'
+
+name = 'table2asn'
+version = '20220610'
+versionsuffix = 'linux64'
+
+homepage = 'https://www.ncbi.nlm.nih.gov/genbank/table2asn/'
+description = """table2asn is a command-line program that creates sequence records for submission to GenBank. It uses many of the same functions as Genome Workbench but is driven generally by data files, and the records it produces do not necessarily require additional manual editing before submission to GenBank. """
+
+toolchain = SYSTEM
+
+source_urls = ['https://ftp.ncbi.nlm.nih.gov/asn1-converters/by_program/table2asn/']
+sources = [{'download_filename': 'table2asn.gz', 'filename': '%(versionsuffix)s.%(name)s.gz'}]
+checksums = ['e3e5250eb847fd0aee0138446174e763edf02de96174de0495719a3c2a159aeb']
+
+sanity_check_paths = {
+    'files': ['table2asn'],
+    'dirs': [],
+}
+
+
+modextrapaths = {'PATH': ''}
+
+postinstallcmds = [
+    "mv %(installdir)s/%(name)s.%(versionsuffix)s %(installdir)s/%(name)s",
+    "chmod +x %(installdir)s/table2asn"]
+
+moduleclass = 'bio'

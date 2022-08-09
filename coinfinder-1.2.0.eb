@@ -1,0 +1,41 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+easyblock = 'Conda'
+
+name = 'coinfinder'
+version = '1.2.0'
+
+homepage = 'https://github.com/fwhelan/coinfinder'
+description = """A tool for the identification of coincident (associating and dissociating) genes in pangenomes."""
+checksums = ['9c7073d69c5061202de7d5f9a88cfcb8bf38ec858516ab36e2704ddd87c106fd']
+
+requirements = "%(namelower)s=%(version)s"
+channels = ['defaults', 'bioconda', 'conda-forge']
+
+exts_defaultclass = 'RPackage'
+
+name_tmpl = '%(name)s_%(version)s.tar.gz'
+local_ext_options = {
+    'source_urls': [
+        'http://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'http://cran.r-project.org/src/contrib/',  # current version of packages
+        'http://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': name_tmpl,
+}
+
+exts_list = [
+    ('globals', '0.15.1',local_ext_options),
+    ('listenv', '0.8.0',local_ext_options),
+    ('pillar','1.8.0',local_ext_options),
+]
+
+modextrapaths = {'R_LIBS': ''}
+
+toolchain = SYSTEM
+
+builddependencies = [('Miniconda3','4.9.2','',('foss','2020b'))]
+
+sanity_check_commands = ['coinfinder']
+
+moduleclass = 'bio'

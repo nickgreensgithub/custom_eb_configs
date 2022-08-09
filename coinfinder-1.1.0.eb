@@ -12,6 +12,17 @@ checksums = ['f90cbd04e123ba62a735b16af556442ff06dc7b2c124681ba89b245c1121a93f']
 requirements = "%(namelower)s=%(version)s"
 channels = ['defaults', 'bioconda', 'conda-forge']
 
+exts_defaultclass = 'RPackage'
+
+exts_list = [
+    ('global', '0.15.1'),
+    ('listenv', '0.8.0'),
+    ('pillar','1.8.0'),
+
+]
+
+modextrapaths = {'R_LIBS': ''}
+
 toolchain = SYSTEM
 
 builddependencies = [('Miniconda3','4.9.2','',('foss','2020b'))]

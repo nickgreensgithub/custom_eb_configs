@@ -1,0 +1,29 @@
+easyblock = 'Tarball'
+name = 'FoldX'
+version = '4.0'
+versionsuffix = '-20221231'
+
+homepage = 'http://foldx.crg.eu/'
+description = """FoldX is used to provide a fast and quantitative estimation of the importance of the interactions contributing to the stability of proteins and protein complexes."""
+
+toolchain = {'name': 'GCCcore', 'version': '10.2.0'}
+
+# no source URLs because registration is required to obtain sources
+# same name as dwnloaded file
+sources = ['%(namelower)sLinux64.tar.gz']
+checksums = ['9653438dbbe3e9c90c432d17f43fa60d718de6adb62c0bfa8fc704f2d5ecca86'] #Will change with license(probably)
+
+modextrapaths = {'PATH': ''}
+modloadmsg = "License expires 20221231. Please register at http://foldx.crg.eu/register.html to obtain a license and reinstall the new download."
+moduleclass = 'bio'
+
+postinstallcmds = [
+    "mv %(installdir)s/foldx_20221231 %(installdir)s/%(namelower)s",
+]
+
+
+sanity_check_paths = {
+    'files': ['foldx'],#file name will likely change with license date
+    'dirs': [],
+}
+

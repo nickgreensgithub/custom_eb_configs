@@ -1,0 +1,39 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+easyblock = 'PythonPackage'
+
+name = 'LightGBM'
+version = '3.3.2'
+
+homepage = 'https://github.com/microsoft/LightGBM'
+description = """LightGBM is a gradient boosting framework that uses tree based learning algorithms. It is designed to be distributed and efficient with the following advantages:"""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+sources = [{
+    'filename': SOURCE_TAR_GZ,
+    'git_config': {
+        'url': 'https://github.com/microsoft',
+        'repo_name': '%(name)s',
+        'tag': 'v%(version)s',
+        'recursive': True,
+    }
+}]
+
+start_dir = 'python-package'
+
+dependencies = [
+    ('Python', '3.8.6'),
+    ('SciPy-bundle', '2020.11'),
+]
+
+builddependencies = [('CMake', '3.18.4'),('cURL','7.72.0')]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+moduleclass = 'bio'
+
+

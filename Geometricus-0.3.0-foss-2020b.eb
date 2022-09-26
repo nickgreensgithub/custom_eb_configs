@@ -1,0 +1,41 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+
+easyblock = 'PythonBundle'
+
+name = 'Geometricus'
+version = '0.3.0'
+
+homepage = 'https://github.com/TurtleTools/geometricus'
+description = """A structure-based, alignment-free embedding approach for proteins. Can be used as input to machine learning algorithms."""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+dependencies = [
+    ('Python', '3.8.6'),
+    ('numba', '0.53.1'),
+    ('Biopython','1.78','-Python-3.8.6'),
+
+    ('SciPy-bundle','2020.11'),
+
+]
+
+exts_default_options = {    
+    'source_urls': [PYPI_LOWER_SOURCE],
+    'use_pip': True,
+}
+
+exts_list = [
+	(name, version, {'source_tmpl': '%(namelower)s-%(version)s.tar.gz',}),
+	('ProDy', '2.2.0',{'source_urls': [PYPI_SOURCE]}),
+]
+
+use_pip = True
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+moduleclass = 'bio'
+

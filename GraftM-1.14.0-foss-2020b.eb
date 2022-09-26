@@ -1,0 +1,39 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+
+easyblock = 'PythonPackage'
+
+name = 'GraftM'
+version = '0.14.0'
+
+homepage = 'http://geronimp.github.io/graftM/'
+description = 'GraftM is a meta-omic tool that identifies and classifies marker genes in short read datasets (metagenomes and metatranscriptomes), as well as assembled contigs, whole genomes and protein sequences. GraftM outputs a taxonomic/functional summary table, a krona plot, as well as various other run statistics. Both unaligned and aligned "hit" sequences are provided. GraftM is designed for speed and accuracy. It is able to find marker genes in a 200Mb of assembled metagenome in <20 sec, and compares favourably with similar tools in accuracy benchmarking.'
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+source_urls = ['https://github.com/geronimp/graftM/archive']
+sources = ['v%(version)s.tar.gz']
+checksums = ['644868ec0c795b0474686633a234e29465eb5ed196dff7c40abf7e478ac55b00']
+
+dependencies = [
+    ('Python', '3.8.6'),
+    ('OrfM', '0.7.1'),
+    ('HMMER', '3.3.2'),
+    ('fxtract', '2.3'),
+    ('pplacer', '1.1.alpha19'),
+    ('KronaTools', '2.8'),
+    ('MAFFT', '7.490', '-with-extensions'),
+    ('DIAMOND', '2.0.9'),
+    ('FastTree', '2.1.11'),
+    ('DendroPy', '4.5.2'),
+    ('Biopython', '1.78','-Python-3.8.6'),
+]
+
+options = {'modulename': False}
+
+sanity_check_paths = {
+    'files': ['bin/graftM'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'

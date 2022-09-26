@@ -1,0 +1,28 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+easyblock = 'ConfigureMake'
+
+name = 'OrfM'
+version = '0.7.1'
+
+homepage = 'https://github.com/wwood/OrfM'
+description = """A simple and not slow open reading frame (ORF) caller. 
+No bells or whistles like frameshift detection, 
+just a straightforward goal of returning a FASTA file 
+of open reading frames over a certain length from a FASTA/Q file 
+of nucleotide sequences.
+"""
+
+toolchain = {'version': '2020b', 'name': 'foss'}
+
+
+sources = [SOURCELOWER_TAR_GZ]
+source_urls = ['https://github.com/wwood/%(name)s/releases/download/v%(version)s']
+
+start_dir = '%(builddir)s/%(namelower)s-%(version)s/'
+unwanted_env_vars = {}
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': [],
+}

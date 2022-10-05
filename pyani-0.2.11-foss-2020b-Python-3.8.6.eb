@@ -17,6 +17,7 @@ dependencies = [
     ('SciPy-bundle','2020.11'),
     ('Biopython','1.78',versionsuffix),
     ('BLAST+','2.11.0'),
+        ('MUMmer','3.23'),
 ]
 
 exts_default_options = {'source_urls': [PYPI_SOURCE], 'modulename': False}

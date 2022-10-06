@@ -1,0 +1,38 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+
+easyblock = 'Conda'
+
+
+name = 'prophyle'
+version = '0.3.3.1'
+
+homepage = 'https://github.com/prophyle/prophyle'
+description = """ProPhyle brings metagenomic classification from clusters to laptops. This is possible thanks to a novel indexing strategy, based on the bottom-up propagation of k-mers in the phylogenetic/taxonomic tree, assembling contigs at each node and matching using a full-text search. 
+"""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+builddependencies = [
+    ('Miniconda3', '4.9.2'),
+]
+
+channels = [
+    'bioconda',
+    'conda-forge',
+]
+requirements = '%(name)s python=3.8.6 pytz=2022.4 python-dateutil=2.8.2'
+
+sanity_check_paths = {
+    'files': ['bin/%(name)s'],
+    'dirs': [],
+}
+
+
+
+modloadmsg = """   
+Remember if you're downloading databases to specify a directory with -d, otherwise they will endup in your home directory and take up a lot of space.
+"""
+
+
+moduleclass = 'bio'

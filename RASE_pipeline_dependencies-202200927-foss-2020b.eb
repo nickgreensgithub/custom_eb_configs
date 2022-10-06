@@ -1,0 +1,57 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Nicholas Green
+
+easyblock = 'Bundle'
+
+name = 'RASE_pipeline_dependencies'
+version = '20220927'
+
+homepage = 'https://github.com/c2-d2/rase-pipeline'
+description = """Dependencies for the RASE prediction pipeline for rapid inference of antibiotic resistance and susceptibility using genomic neighbor typing. 
+"""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+dependencies = [
+    ('Python', '3.8.6'),
+    ('prophyle', '0.3.3.1'),
+    ('ETE','3.1.2', '-Python-3.8.6'),
+    ('Pysam', '0.18.0'),
+    ('CMake','3.20.1'),
+    ('parallel','20210322'),
+    ('Ghostscript','9.53.3'),
+    ('SciPy-bundle', '2020.11'),
+    ('snakemake', '6.1.0'),
+    ('SAMtools', '1.14'),
+    ('R', '4.0.3'),
+    ('zlib', '1.2.11'),
+    ('seqtk', '1.3'),
+]
+
+use_pip = True
+
+
+modextrapaths = {
+    'PATH': '',
+}
+modloadmsg = """   
+To download and run the pipeline use the following commands(with an appropriate directory)
+
+cd <some directory to download the pipeline to>
+git clone --recursive https://github.com/c2-d2/rase-pipeline .
+
+Then run with a subcommand from this list:
+
+    make - Run everything.
+    make cluster - Submit jobs to a cluster.
+    make export - Export all outputs to rase_results.tar.
+    make clean - Clean plots and prediction files.
+    make cleanall - Clean all output files (including bam files and logs).
+    make replot - Re-plot all figures.
+    make test - Run the smallest experiment only. If database or reads are not present, download examples. For testing and debugging purposes.
+
+"""
+
+moduleclass = 'bio'
+
+
